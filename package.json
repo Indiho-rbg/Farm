@@ -1,5 +1,5 @@
 const { Telegraf } = require('telegraf');
-const bot = new Telegraf('7578633286:AAESGkDK5YdSLqlobv0ut1W3ozVRKJtghNE');
+const bot = new Telegraf('BOT_TOKEN');
 
 bot.command('start', (ctx) => {
   ctx.telegram.sendMessage(
