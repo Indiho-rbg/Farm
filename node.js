@@ -11,7 +11,7 @@ const message = {
       [
         {
           text: 'Запустити гру',
-          web_app: { url: 'https://your-game-url.com' }
+          web_app: { url: 'https://vercel.com/indihos-projects/farm' }
         }
       ]
     ]
