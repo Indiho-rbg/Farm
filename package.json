@@ -1,19 +1,25 @@
-{
-  "chat_id": "USER_CHAT_ID", 
-  "text": "Грати в гру",
-  "reply_markup": {
-    "inline_keyboard": [
-      [
-        {
-          "text": "Запустити гру",
-          "web_app": {
-            "url": "https://farm-ochre-one.vercel.app/"
-          }
-        }
-      ]
-    ]
-  }
-}
-"dependencies": {
-    "telegraf": "^4.16.3"
-}
+const { Telegraf } = require('telegraf');
+const bot = new Telegraf('7578633286:AAESGkDK5YdSLqlobv0ut1W3ozVRKJtghNE');
+
+bot.command('start', (ctx) => {
+  ctx.telegram.sendMessage(
+    ctx.chat.id,  // ID чату
+    'Грати в гру', 
+    {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            {
+              text: "Запустити гру",
+              web_app: {
+                url: "https://farm-ochre-one.vercel.app/"
+              }
+            }
+          ]
+        ]
+      }
+    }
+  );
+});
+
+bot.launch();
