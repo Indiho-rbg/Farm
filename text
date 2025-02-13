@@ -1,0 +1,9 @@
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+  // Ініціалізація Telegram SDK
+  Telegram.WebApp.init();
+
+  // Отримання даних про користувача
+  const user = Telegram.WebApp.initDataUnsafe;
+  console.log(user);
+</script>
