@@ -1,25 +1,25 @@
-const { Telegraf } = require('telegraf');
-const bot = new Telegraf('BOT_TOKEN');
-
-bot.command('start', (ctx) => {
-  ctx.telegram.sendMessage(
-    ctx.chat.id,  // ID чату
-    'Грати в гру', 
-    {
-      reply_markup: {
-        inline_keyboard: [
-          [
-            {
-              text: "Запустити гру",
-              web_app: {
-                url: "https://farm-ochre-one.vercel.app/"
+bot.command('start', async (ctx) => {
+  try {
+    await ctx.telegram.sendMessage(
+      ctx.chat.id,
+      'Грати в гру', 
+      {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "Запустити гру",
+                web_app: {
+                  url: "https://farm-ochre-one.vercel.app/"
+                }
               }
-            }
+            ]
           ]
-        ]
+        }
       }
-    }
-  );
+    );
+  } catch (error) {
+    console.error('Error sending message:', error);
+  }
 });
 
-bot.launch();
