@@ -7,7 +7,7 @@
         {
           "text": "Запустити гру",
           "web_app": {
-            "url": "https://your-game-url.com"
+            "url": "https://farm-ochre-one.vercel.app/"
           }
         }
       ]
