@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const botToken = 'YOUR_BOT_TOKEN'; // Ваш токен
+const botToken = '7578633286:AAESGkDK5YdSLqlobv0ut1W3ozVRKJtghNE'; // Ваш токен
 const userChatId = 'USER_CHAT_ID'; // Ідентифікатор користувача (отримати через команду /start)
 
 const message = {
