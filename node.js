@@ -1,28 +1,17 @@
-const fetch = require('node-fetch');
+const { Telegraf } = require('telegraf');
 
-const botToken = '7578633286:AAESGkDK5YdSLqlobv0ut1W3ozVRKJtghNE'; // Ваш токен
-const userChatId = 'USER_CHAT_ID'; // Ідентифікатор користувача (отримати через команду /start)
+const bot = new Telegraf('YOUR_BOT_TOKEN');
 
-const message = {
-  chat_id: userChatId,
-  text: 'Грати в гру',
-  reply_markup: {
-    inline_keyboard: [
-      [
-        {
-          text: 'Запустити гру',
-          web_app: { url: 'https://vercel.com/indihos-projects/farm' }
+bot.start((ctx) => {
+    console.log("Отримано /start від", ctx.from.username); // Лог для перевірки
+    ctx.reply('Привіт! Натисни кнопку, щоб грати:', {
+        reply_markup: {
+            inline_keyboard: [
+                [{ text: 'Грати', web_app: { url: 'https://your-vercel-game.vercel.app' } }]
+            ]
         }
-      ]
-    ]
-  }
-};
+    });
+});
 
-fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(message)
-})
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error('Error:', error));
+bot.launch();
+console.log("Бот запущено...");
