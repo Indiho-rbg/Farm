@@ -1,10 +1,13 @@
-const { Telegraf } = require('telegraf');
-const bot = new Telegraf('<YOUR_BOT_TOKEN>');
+{
+  "name": "farm-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for farm game",
+  "main": "api/bot.js",
+  "scripts": {
+    "start": "node api/bot.js"
+  },
+  "dependencies": {
+    "telegraf": "^4.16.3"
 
-// Обробка команди /start
-bot.start((ctx) => {
-  ctx.reply('Привіт! Як я можу допомогти?');
-});
-
-// Запуск бота
-bot.launch();
+  }  
+}
