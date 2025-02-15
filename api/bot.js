@@ -1,7 +1,7 @@
 const { Telegraf, Markup } = require("telegraf");
 const express = require("express");
 const mongoose = require("mongoose");
-const mongoURI = "mongodb+srv://<myUser>:<Holo12345>@cluster0.cv5e5.mongodb.net/farmgame?retryWrites=true&w=majority"
+const mongoURI = process.env.MONGO_URI;
 const bot = new Telegraf(process.env.BOT_TOKEN);
 const app = express();
 app.use(express.json());
