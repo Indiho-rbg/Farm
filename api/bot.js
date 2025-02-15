@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 // Підключення до MongoDB без застарілих параметрів
-mongoose.connect('mongodb+srv://<myUser>:<Holo12345>@cluster0.cv5e5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://<myUser>:<Holo12345>@cluster0.cv5e5.mongodb.net/farmgame?retryWrites=true&w=majority&appName=Cluster0')
   .then(() => {
     console.log('MongoDB connected');
   })
