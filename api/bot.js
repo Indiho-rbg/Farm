@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 // Підключення до MongoDB без застарілих параметрів
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
