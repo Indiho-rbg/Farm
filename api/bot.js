@@ -6,10 +6,14 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 const app = express();
 app.use(express.json());
 
-// 📌 Підключення до MongoDB
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log("✅ Підключено до MongoDB"))
-    .catch(err => console.error("❌ Помилка MongoDB:", err));
+// Підключення до MongoDB без застарілих параметрів
+mongoose.connect('mongodb://localhost:27017/mydb')
+  .then(() => {
+    console.log('MongoDB connected');
+  })
+  .catch(err => {
+    console.log('MongoDB connection error:', err);
+  });
 
 // 📌 Модель користувача
 const User = mongoose.model("User", new mongoose.Schema({
