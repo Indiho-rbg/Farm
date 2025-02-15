@@ -1,4 +1,4 @@
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram import WebAppInfo, InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, CallbackContext
 
 TOKEN = "7578633286:AAESGkDK5YdSLqlobv0ut1W3ozVRKJtghNE"
