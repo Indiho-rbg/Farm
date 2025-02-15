@@ -1,12 +1,11 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, CallbackContext
-from aiogram import InlineKeyboardButton, KeyboardButton, WebAppInfo
 
 TOKEN = "7578633286:AAESGkDK5YdSLqlobv0ut1W3ozVRKJtghNE"
 
 def start(update: Update, context: CallbackContext) -> None:
     keyboard = [
-        [ikb = InlineKeyboardButton("Натисни мене", web_app=WebAppInfo('https://farm-ochre-one.vercel.app/'))]
+        [InlineKeyboardButton("Натисни мене!", callback_data="button_pressed")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
