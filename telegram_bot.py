@@ -5,7 +5,7 @@ TOKEN = "7578633286:AAESGkDK5YdSLqlobv0ut1W3ozVRKJtghNE"
 
 def start(update: Update, context: CallbackContext) -> None:
     keyboard = [
-        [InlineKeyboardButton("Натисни мене!", callback_data="button_pressed")]
+        [InlineKeyboardButton("Натисни мене!", web_app=WebAppInfo('https://farm-ochre-one.vercel.app/')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
