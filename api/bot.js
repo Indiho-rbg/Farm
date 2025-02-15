@@ -1,19 +1,15 @@
 const { Telegraf, Markup } = require("telegraf");
 const express = require("express");
 const mongoose = require("mongoose");
-
+const mongoURI = "mongodb+srv://<myUser>:<Holo12345>@cluster0.cv5e5.mongodb.net/farmgame?retryWrites=true&w=majority"
 const bot = new Telegraf(process.env.BOT_TOKEN);
 const app = express();
 app.use(express.json());
 
 // Підключення до MongoDB без застарілих параметрів
-mongoose.connect('mongodb+srv://<myUser>:<Holo12345>@cluster0.cv5e5.mongodb.net/farmgame?retryWrites=true&w=majority')
-  .then(() => {
-    console.log('MongoDB connected');
-  })
-  .catch(err => {
-    console.log('MongoDB connection error:', err);
-  });
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
 // 📌 Модель користувача
 const User = mongoose.model("User", new mongoose.Schema({
