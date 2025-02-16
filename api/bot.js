@@ -48,6 +48,17 @@ bot.action("help", (ctx) => {
     ctx.reply("Натисни \"Запустити гру\", щоб почати. Використовуй кнопки для керування фермою! 🏡");
 });
 
+// 📌 API-ендпоінт для отримання балансу гравця
+app.get("/api/get-coins/:telegramId", async (req, res) => {
+    const { telegramId } = req.params;
+
+    const user = await User.findOne({ telegramId });
+
+    if (!user) return res.status(404).send("Користувача не знайдено.");
+
+    res.send({ success: true, coins: user.coins });
+});
+
 // 📌 API-ендпоінт для оновлення балансу гравця з гри
 app.post("/api/update-coins", async (req, res) => {
     const { telegramId, coins } = req.body;
