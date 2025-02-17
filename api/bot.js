@@ -52,7 +52,7 @@ bot.action("help", (ctx) => {
 app.get("/api/get-coins/:telegramId", async (req, res) => {
     const { telegramId } = req.params;
 
-    const user = await User.findOne({ telegramId });
+    const user = await User.findOne({ telegramId: telegramId.toString() });
 
     if (!user) return res.status(404).send("Користувача не знайдено.");
 
@@ -65,7 +65,7 @@ app.post("/api/update-coins", async (req, res) => {
     console.log(`Updating coins for ${telegramId}: +${coins}`);
 
     const user = await User.findOneAndUpdate(
-        { telegramId },
+        { telegramId: telegramId.toString() },
         { $inc: { coins } },
         { new: true }
     );
