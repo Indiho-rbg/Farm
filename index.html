@@ -19,46 +19,41 @@
 </head>
 <body>
   <h1>Тапер Гра</h1>
-  <p>Єбааааш</p>
+  <p>Тапай для отримання монет!</p>
   <button id="tapButton">Натискати</button>
   <p>Монети: <span id="coinCount">0</span></p>
 
   <script>
-    // Отримуємо Telegram Web App
-    const telegramWebApp = Telegram.WebApp;
-
     let coins = 0;
+    const telegramId = Telegram.WebApp.initDataUnsafe.user.id;  // Отримуємо Telegram ID
 
-    // Функція для оновлення монет на сервері
-    async function tapAction() {
-      const telegramId = telegramWebApp.initDataUnsafe.user.id; // Отримуємо Telegram ID
+    document.getElementById("tapButton").addEventListener("click", async () => {
+      coins++;
+
+      // Оновлення UI на клієнтській частині
+      document.getElementById("coinCount").textContent = coins;
 
       try {
-        // Збільшуємо монети, наприклад, на 10
+        // Відправка запиту на сервер для оновлення монет
         const response = await fetch('/api/update-coins', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ telegramId, coins: 10 }),
+          body: JSON.stringify({ telegramId, coins: 1 })  // Додаємо 1 монету
         });
 
         const data = await response.json();
         if (data.success) {
-          coins += 10; // Додаємо 10 монет
-          document.getElementById("coinCount").textContent = coins;
           console.log('Новий баланс монет:', data.newBalance);
+          // Оновлення монет в UI після відповіді від сервера
+          document.getElementById("coinCount").textContent = data.newBalance;
         } else {
           console.log('Не вдалося оновити монети');
         }
       } catch (error) {
         console.error('Помилка під час оновлення монет:', error);
       }
-    }
-
-    // Обробник натискання кнопки
-    document.getElementById("tapButton").addEventListener("click", () => {
-      tapAction(); // Викликаємо функцію для оновлення монет
     });
   </script>
 </body>
