@@ -57,17 +57,23 @@ bot.action("help", (ctx) => {
 app.get("/api/get-coins/:telegramId", async (req, res) => {
     const { telegramId } = req.params;
 
+    console.log(`Запит на отримання монет для користувача ${telegramId}`);
+
     const user = await User.findOne({ telegramId: telegramId.toString() });
 
-    if (!user) return res.status(404).send("Користувача не знайдено.");
+    if (!user) {
+        console.log(`Користувача з ID ${telegramId} не знайдено.`);
+        return res.status(404).send("Користувача не знайдено.");
+    }
 
+    console.log(`Баланс користувача ${telegramId}: ${user.coins}`);
     res.send({ success: true, coins: user.coins });
 });
 
 // 📌 API-ендпоінт для оновлення балансу гравця з гри
 app.post("/api/update-coins", async (req, res) => {
     const { telegramId, coins } = req.body;
-    console.log(`Updating coins for ${telegramId}: +${coins}`);
+    console.log(`Запит на оновлення монет для користувача ${telegramId}. Додавання монет: ${coins}`);
 
     const user = await User.findOneAndUpdate(
         { telegramId: telegramId.toString() },
@@ -76,11 +82,11 @@ app.post("/api/update-coins", async (req, res) => {
     );
 
     if (!user) {
-        console.log("User not found!");
+        console.log("Користувач не знайдений!");
         return res.status(404).send("Користувача не знайдено.");
     }
 
-    console.log(`New balance: ${user.coins}`);
+    console.log(`Новий баланс для користувача ${telegramId}: ${user.coins}`);
     res.send({ success: true, newBalance: user.coins });
 });
 
