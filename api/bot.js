@@ -6,9 +6,24 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 const app = express();
 app.use(express.json());
 
-// Підключення до MongoDB без застарілих параметрів
+// Підключення до MongoDB
 mongoose.connect(mongoURI)
-  .then(() => console.log('MongoDB connected'))
+  .then(() => {
+    console.log('MongoDB connected');
+    
+    // Додаємо моніторинг змін в колекції 'users'
+    const User = mongoose.model("User", new mongoose.Schema({
+      telegramId: { type: String, required: true, unique: true },
+      coins: { type: Number, default: 0 }
+    }));
+
+    // Моніторинг змін
+    const changeStream = User.watch();
+    changeStream.on("change", (next) => {
+        console.log("Зміни в колекції users:", next);
+    });
+
+  })
   .catch((err) => console.error('MongoDB connection error:', err));
 
 // 📌 Модель користувача
