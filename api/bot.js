@@ -73,6 +73,13 @@ app.get("/api/get-coins/:telegramId", async (req, res) => {
 // 📌 API-ендпоінт для оновлення балансу гравця з гри
 app.post("/api/update-coins", async (req, res) => {
     const { telegramId, coins } = req.body;
+
+    // Перевірка типу даних
+    if (typeof coins !== 'number') {
+        console.log(`Помилка: coins має бути числом. Відправлено: ${typeof coins}`);
+        return res.status(400).send("coins має бути числом.");
+    }
+
     console.log(`Запит на оновлення монет для користувача ${telegramId}. Додавання монет: ${coins}`);
 
     const user = await User.findOneAndUpdate(
