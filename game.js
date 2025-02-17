@@ -8,7 +8,7 @@ async function tapAction() {
     console.log(`📤 Відправляємо запит на сервер для користувача ${telegramId}...`);
 
     try {
-        const response = await fetch('https://твій-сервер/api/update-coins', { // Вкажи свій сервер
+        const response = await fetch('https://farm-ochre-one.vercel.app/api/update-coins', { // Вкажи свій сервер
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ telegramId, coins: 10 }),
