@@ -19,11 +19,16 @@ const User = mongoose.model("User", new mongoose.Schema({
 
 // 📌 Обробка команди /start
 bot.start(async (ctx) => {
-    let user = await User.findOne({ telegramId: ctx.from.id });
+    console.log("Команда /start від", ctx.from.id); 
+
+    let user = await User.findOne({ telegramId: ctx.from.id.toString() });
+
+    console.log("Знайдено користувача:", user);
 
     if (!user) {
-        user = new User({ telegramId: ctx.from.id });
+        user = new User({ telegramId: ctx.from.id.toString(), coins: 100 }); // Додамо стартові монети
         await user.save();
+        console.log("Новий користувач створений:", user);
     }
 
     ctx.reply(
