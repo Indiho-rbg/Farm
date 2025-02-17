@@ -10,14 +10,14 @@ app.use(express.json());
 mongoose.connect(mongoURI)
   .then(() => {
     console.log('MongoDB connected');
-    
-    // Додаємо моніторинг змін в колекції 'users'
-    const User = mongoose.model("User", new mongoose.Schema({
+
+    // Перевірка, чи вже є модель, перед її створенням
+    const User = mongoose.models.User || mongoose.model("User", new mongoose.Schema({
       telegramId: { type: String, required: true, unique: true },
       coins: { type: Number, default: 0 }
     }));
 
-    // Моніторинг змін
+    // Додаємо моніторинг змін
     const changeStream = User.watch();
     changeStream.on("change", (next) => {
         console.log("Зміни в колекції users:", next);
@@ -27,7 +27,7 @@ mongoose.connect(mongoURI)
   .catch((err) => console.error('MongoDB connection error:', err));
 
 // 📌 Модель користувача
-const User = mongoose.model("User", new mongoose.Schema({
+const User = mongoose.models.User || mongoose.model("User", new mongoose.Schema({
     telegramId: { type: String, required: true, unique: true },
     coins: { type: Number, default: 0 }
 }));
