@@ -1,24 +1,29 @@
 async function tapAction() {
-  const telegramId = Telegram.WebApp.initDataUnsafe.user.id; // Отримуємо Telegram ID
-
-  try {
-    const response = await fetch('/api/update-coins', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ telegramId, coins: 10 }),
-    });
-
-    const data = await response.json();
-    if (data.success) {
-      coins += 10; // Додаємо 10 монет
-      document.getElementById("coinCount").textContent = coins;
-      console.log('Новий баланс монет:', data.newBalance);
-    } else {
-      console.log('Не вдалося оновити монети');
+    if (!Telegram.WebApp.initDataUnsafe.user) {
+        console.error("❌ Не вдалося отримати Telegram ID.");
+        return;
     }
-  } catch (error) {
-    console.error('Помилка під час оновлення монет:', error);
-  }
+
+    const telegramId = Telegram.WebApp.initDataUnsafe.user.id;
+    console.log(`📤 Відправляємо запит на сервер для користувача ${telegramId}...`);
+
+    try {
+        const response = await fetch('https://твій-сервер/api/update-coins', { // Вкажи свій сервер
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ telegramId, coins: 10 }),
+        });
+
+        const data = await response.json();
+        console.log("📩 Отримано відповідь:", data);
+
+        if (data.success) {
+            document.getElementById("coinCount").textContent = data.newBalance;
+            console.log('✅ Новий баланс монет:', data.newBalance);
+        } else {
+            console.error('❌ Не вдалося оновити монети:', data);
+        }
+    } catch (error) {
+        console.error('❌ Помилка під час оновлення монет:', error);
+    }
 }
