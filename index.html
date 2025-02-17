@@ -24,11 +24,41 @@
   <p>Монети: <span id="coinCount">0</span></p>
 
   <script>
+    // Отримуємо Telegram Web App
+    const telegramWebApp = Telegram.WebApp;
+
     let coins = 0;
 
+    // Функція для оновлення монет на сервері
+    async function tapAction() {
+      const telegramId = telegramWebApp.initDataUnsafe.user.id; // Отримуємо Telegram ID
+
+      try {
+        // Збільшуємо монети, наприклад, на 10
+        const response = await fetch('/api/update-coins', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ telegramId, coins: 10 }),
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          coins += 10; // Додаємо 10 монет
+          document.getElementById("coinCount").textContent = coins;
+          console.log('Новий баланс монет:', data.newBalance);
+        } else {
+          console.log('Не вдалося оновити монети');
+        }
+      } catch (error) {
+        console.error('Помилка під час оновлення монет:', error);
+      }
+    }
+
+    // Обробник натискання кнопки
     document.getElementById("tapButton").addEventListener("click", () => {
-      coins++;
-      document.getElementById("coinCount").textContent = coins;
+      tapAction(); // Викликаємо функцію для оновлення монет
     });
   </script>
 </body>
